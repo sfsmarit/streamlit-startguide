@@ -1,5 +1,4 @@
-# sample-streamlit-app
-A sample streamlit application
+# streamlit-startguide
 
 ## Demo Page
-https://sample-app-jp.streamlit.app/
+https://app-startguide.streamlit.app/
