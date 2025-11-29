@@ -259,8 +259,7 @@ st.markdown(
     - VS Code のソース管理画面 (GUI) を使う
     - ターミナルに git コマンドを入力する
     
-    **git コマンドを使う方法**
-    
+    A) **git コマンドを使う方法**{nl}
     作業内容をコンパクトに説明するために、まず git コマンドを使う方法を紹介します。
     実際には、この後に紹介する VS Code の管理画面を使うとよいです。{nl}
     
@@ -289,45 +288,44 @@ st.markdown(
     git push - u origin main
     ```
 
-    **VS Code のソース管理画面を使う方法**
-    
-    1. Git の初期化{nl}
-    VS Code のソース管理画面からリポジトリを初期化します。
+    B) **VS Code のソース管理画面を使う方法**
+    1. Git の初期化 `git init`
     """
 )
 
 st.image(Image.open("data/git_init.png"))
 
 st.markdown(
-    """
-    ** GitHub リポジトリを指定 **
-    1.「リモート > リモートの追加」をクリックする。
-    2. GitHub リポジトリの URL`https: // github.com/<ユーザー名 > /sample-app.git`を入力する。
-    3. リモート名は`origin`とする。
+    f"""
+    **リモートリポジトリの紐づけ `git remote add`**{nl}
+    1. 「... > リモート > リモートの追加」をクリック
+    2.  GitHub リポジトリの URL`https://github.com/<UserName>/sample-app.git`を入力
+    3.  リモート名に`origin`を指定
     """
 )
 
 st.image(Image.open("data/git_add_remote.png"))
 
 st.markdown(
-    """
-    ** 変更のステージング・コミット **
-    コミットをクリックします。コミットメッセージは適当でよいです。
+    f"""
+    **変更のステージング・コミット** `git add + git commit`{nl}
+    コミットをクリックして、コミットメッセージを入力
     """
 )
 
 st.image(Image.open("data/first_commit.png"))
 
 st.markdown(
-    """
-    ** コミット内容のアップロード **
-    VS Code のソース管理画面で「Branchの発行」をクリックすると、コミットした内容が GitHub リポジトリにアップロードされます。
-    ブラウザで GitHub の画面を更新すると、`main.py`がアップロードされていることが確認できます。
+    f"""
+    **ブランチの発行・アップロード** `git push`{nl}
+    - 初回 :「Branchの発行」をクリック
+    - 以降 : 「... > プッシュ」をクリック
+    GitHub のリポジトリのページを確認し、main ブランチにファイルがアップロードされていたら成功です。
 
-    ** アプリを修正して再アップロード ** `main.py`に例えば 'Say Good Bye' ボタンを追加します。
-    変更を保存すると、変更が検知されて再びコミットできるようになります。
-    「コミットしてプッシュ」を選択すると、すべての変更がステージング → コミット → プッシュされ、直ちに GitHub に反映されます。
+    **変更を再アップロード**{nl}
+    例えば`main.py`にボタンを追加して保存すると、変更が検出されて再びコミットできるようになります。
+    「コミットしてプッシュ」を選択すると、ステージング・コミット・プッシュがまとめて実行され、直ちに GitHub に反映されます。
     """
 )
 
-st.image(Image.open("data/git_push_update.png"))
+st.image(Image.open("data/git_commit_push.png"))
