@@ -1,43 +1,43 @@
 import streamlit as st
-from PIL import Image
 
 nl = "  "
 
-st.set_page_config(page_title="開発手順")
-st.title("開発手順")
+st.set_page_config(page_title="作ってみる")
+st.title("作ってみる")
 
 st.markdown(
     """
-    このページでは、Streamlit の開発環境を一から用意し、サンプルアプリをサーバに公開する手順について紹介します。
+    このページでは、Streamlit の開発環境を用意してアプリを作成し、公開するまでの一連の手順について紹介します。
     """
 )
 
 st.subheader("開発環境", divider=True)
-st.image(Image.open("data/dev_env.png"))
+st.image("data/dev_env.png")
 st.markdown(
     f"""
     開発環境は主に次の3つで構成されます。
 
-    1. **ローカル環境**
+    1. **ローカル環境**{nl}
     アプリを作成する場所です。通常は自分の PC でコードを書き、動作確認を行います。
     Streamlit をインストールし、ブラウザでアプリを確認できるようにします。
     統合開発環境として Visual Studio Code を使用します。
 
-    2. **GitHub**
+    2. **GitHub**{nl}
     コードを安全に管理・共有するためのクラウドサービスです。
     コードのバージョンを管理し、誰がどの変更をしたか追跡できます。
     また、後で Web サーバに公開する際にも GitHub のリポジトリを使います。
 
-    3. **Web サーバ**
+    3. **Web サーバ**{nl}
     作成したアプリを公開するための環境です。
-    機密情報を扱う場合は社内サーバを、そうでなければ Streamlit Community Cloud を使うとよいです。
+    一般に公開してもよければ Streamlit Community Cloud を使うのが最も簡単です。
+    社内限定で公開する場合は社内サーバを使用してください。
 
-    次に、これらの環境を上から順に構築していきます。
+    以降では、これらの環境を順番に構築していきます。
     """
 )
 
 
-st.subheader("(1) ローカル環境の構築", divider=True)
+st.subheader("1) ローカル環境の構築", divider=True)
 st.markdown(
     """
     #### Visual Studio Code のインストール (初回のみ)
@@ -53,7 +53,7 @@ st.markdown(
     - **autopep8** (コード自動整形)
     """
 )
-st.image(Image.open("data/vscode_extention.png"))
+st.image("data/vscode_extention.png")
 
 st.markdown(
     """
@@ -69,7 +69,7 @@ st.markdown(
     """
 )
 
-st.image(Image.open("data/vscode_terminal.png"))
+st.image("data/vscode_terminal.png")
 
 st.markdown(
     """
@@ -92,7 +92,7 @@ st.markdown(
     """
 )
 
-st.image(Image.open("data/create_script.png"))
+st.image("data/create_script.png")
 
 st.markdown(
     """
@@ -163,30 +163,20 @@ st.markdown(
     """
 )
 
-st.subheader("(2) GitHub によるプロジェクト管理", divider=True)
+st.subheader("2) GitHub にアップロード", divider=True)
 st.markdown(
     """
     GitHub とは、バージョン管理システム「Git」を利用してコードを管理・共有する Web サービスです。
     後でアプリを Web サーバにデプロイする時にも、GitHub を経由してソースコードをアップロードします。
     GitHub は非常に多機能なツールですが、ここではアプリを公開するまでに必要な手続きのみに限定して説明します。
-    """
-)
 
-st.warning(
-    """
-    GitHub にアップロードしたソースコードは、設定によっては世界中に公開されます。
-    コードに機密情報が含まれる場合は、取り扱いに十分注意してください。
-    """
-)
-
-st.markdown(
-    """
     ---
+
     #### Git 管理の全体像
     """
 )
 
-st.image(Image.open("data/git_overview.png"))
+st.image("data/git_overview.png")
 
 st.markdown(
     f"""
@@ -235,7 +225,7 @@ st.markdown(
     """
 )
 
-st.image(Image.open("data/create_repository.png"))
+st.image("data/create_repository.png")
 
 st.markdown(
     """
@@ -258,12 +248,12 @@ st.markdown(
     Git を操作してファイルを管理する方法は 2 種類あります。
     - VS Code のソース管理画面 (GUI) を使う
     - ターミナルに git コマンドを入力する
-    
+
     A) **git コマンドを使う方法**{nl}
     作業内容をコンパクトに説明するために、まず git コマンドを使う方法を紹介します。
     実際には、この後に紹介する VS Code の管理画面を使うとよいです。{nl}
-    
-    VS Code のターミナルを開き、以下のコマンドを一つずつ実行します。    
+
+    VS Code のターミナルを開き、以下のコマンドを一つずつ実行します。
     ```bash
     # Git の初期化
     # .git フォルダが作成される
@@ -293,7 +283,7 @@ st.markdown(
     """
 )
 
-st.image(Image.open("data/git_init.png"))
+st.image("data/git_init.png")
 
 st.markdown(
     f"""
@@ -304,7 +294,7 @@ st.markdown(
     """
 )
 
-st.image(Image.open("data/git_add_remote.png"))
+st.image("data/git_add_remote.png")
 
 st.markdown(
     f"""
@@ -313,7 +303,7 @@ st.markdown(
     """
 )
 
-st.image(Image.open("data/first_commit.png"))
+st.image("data/first_commit.png")
 
 st.markdown(
     f"""
@@ -328,4 +318,44 @@ st.markdown(
     """
 )
 
-st.image(Image.open("data/git_commit_push.png"))
+st.image("data/git_commit_push.png")
+
+st.subheader("3) Web サーバに公開する", divider=True)
+
+st.markdown(
+    f"""
+    Web サーバの選択肢は主に 2 通りあります。
+    - **Streamlit Community Cloud **{nl}
+    https://streamlit.io/cloud{nl}
+    Streamlit 公式の無料ホスティングサービスです。
+    GitHub と連携して簡単にアプリを公開できます。さらに、URL のカスタマイズや Secrets 機能などもサポートされています。
+    ただし、基本的に Public リポジトリしかデプロイできないため、機密情報を扱うアプリには使えません。
+
+    - **社内サーバ**{nl}
+    社内ネットワークにあるサーバでアプリを動作させる方法です。
+    セキュリティ面で優れており、機密情報を扱うアプリに適しています。
+    カスタマイズ性が高いですが、一方で環境構築や安定稼働の仕組みなどを自分で用意する必要があります。
+
+    続いて、先ほど作成した`sample-app`を例に、これらのサーバでアプリを起動(デプロイ)する方法について紹介します。
+
+    ---
+ 
+    #### Streamlit Community Cloud にデプロイ
+    1. Streamlit Community Cloud  アカウント登録 (初回のみ){nl}
+    https://streamlit.io/cloud{nl}
+
+    2. GitHub リポジトリからアプリ作成{nl}
+    右上の「Create app > Deploy a public app from GitHub」を選択{nl}
+    """
+)
+
+
+st.image("data/deploy_streamlit_communication_cloud.png")
+
+st.markdown(
+    f"""
+    ---
+
+    #### 社内サーバにデプロイ
+    """
+)
