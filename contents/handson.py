@@ -370,12 +370,56 @@ st.markdown(
     
     2. **サーバ上に Streamlit 環境を構築する**{nl}
     サーバ上で pip コマンドが使えるなら `pip install streamlit` とすればよいです。{nl}
-    しかしながら、権限の制約により pip が使えない場合、Python 仮想環境を用意する必要があります。
+    しかしながら、権限の制約により pip が使えない場合、Python 仮想環境で作業する必要があります。
     > Python 仮想環境とは、プロジェクトごとに独立した Python 実行環境を作る仕組みです。
     > ライブラリや Python のバージョンをプロジェクト単位で分けて管理できます。
+
+    ホームディレクトリに myenv というフォルダ名の仮想環境を作ります。
     
+    ```bash
+    # Python のバージョンを確認
+    python --version
+
+    # ホームディレクトリに移動
+    cd
+    
+    # 仮想環境を作成
+    python -m venv myenv
+    # もしくは、python のバージョンを指定して作成
+    /usr/bin/python3.xx -m venv myenv
+    
+    # 仮想環境を有効化 (csh の場合)
+    source myenv/bin/activate.csh
+    
+    # Streamlit をインストール
+    pip install streamlit
+    
+    # 仮想環境を終了
+    deactivate
+    ```
+
     3. **GitHub からアプリをダウンロードする**{nl}
+    ホームディレクトリに `sample-app` プロジェクトフォルダをダウンロードします。
+    ```bash
+    # ホームディレクトリに移動
+    cd
     
-    4. **アプリを稼働させる**{nl}
+    # GitHub リポジトリをクローン
+    git clone https://github.com/<UserName>/sample-app.git
+    ```
+    
+    4. **アプリを起動**{nl}
+    ```bash
+    # プロジェクトフォルダに移動
+    cd sample-app
+    
+    # アプリを起動
+    ~/myenv/bin/streamlit run main.py
+    ```
+
+    5. **コードを更新**{nl}
+    ```bash
+    ```
+    
     """
 )
