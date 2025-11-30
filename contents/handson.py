@@ -411,7 +411,7 @@ st.markdown(
     4. **アプリを起動**{nl}
     ```bash
     # プロジェクトフォルダに移動
-    cd sample-app
+    cd ~/sample-app
     
     # アプリを起動
     ~/myenv/bin/streamlit run main.py
@@ -419,7 +419,17 @@ st.markdown(
 
     5. **コードを更新**{nl}
     ```bash
+    # プロジェクトフォルダに移動
+    cd ~/sample-app
+
+    # コードを更新
+    git pull
     ```
-    
+    `pull` すると、更新データをダウンロードして既存ファイルにマージします `fetch + merge`。    
+
+    ---
+
+    #### アプリを安定稼働させる
+    執筆中...
     """
 )
