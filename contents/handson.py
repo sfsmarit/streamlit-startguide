@@ -3,11 +3,11 @@ import streamlit as st
 nl = "  "
 
 st.set_page_config(page_title="作ってみる")
-st.title("作ってみる")
+st.title("とりあえず作ってみよう")
 
 st.markdown(
-    """
-    このページでは、Streamlit の開発環境を用意してアプリを作成し、公開するまでの一連の手順について紹介します。
+    f"""
+    このページでは、アプリの開発環境の構築から公開まで、開発を一通りやってみます。
     """
 )
 
@@ -41,10 +41,10 @@ st.subheader("1) ローカル環境の構築", divider=True)
 st.markdown(
     """
     #### Visual Studio Code のインストール (初回のみ)
-    Visual Studio Code (VS Code) とは、Microsoft が提供する無料のコードエディタです。
-    軽量でありながら拡張機能が豊富で、Python の開発に広く利用されています。
-
     https://azure.microsoft.com/ja-jp/products/visual-studio-code
+    > Visual Studio Code (VS Code) とは、Microsoft が提供する無料のコードエディタです。
+    > 軽量でありながら拡張機能が豊富で、Python の開発に広く利用されています。
+
 
     1. **VS Code を起動して、以下の拡張機能を追加**
     - **Japanese Language Pack for Visual Studio Code** (日本語表示)
@@ -72,59 +72,29 @@ st.markdown(
 st.image("data/vscode_terminal.png")
 
 st.markdown(
-    """
+    f"""
     ---
 
     #### プロジェクトの作成
     アプリケーションごとのコードやデータファイルの集合を**プロジェクト**と呼びます。
     Streamlit でアプリを作る場合、ひとつのプロジェクトがひとつのアプリに対応します。
 
-    1. **フォルダの作成**
+    1. **フォルダの作成**{nl}
     ここではフォルダ名を`sample-app`とします。
     プロジェクト名が複数単語からなる場合、GitHub の慣用表現にならって _ (アンダースコア) ではなく - (ハイフン) で繋ぎます。
 
-    2. **VS Code でプロジェクトを開く**
+    2. **VS Code でプロジェクトを開く**{nl}
     『ファイル > フォルダーを開く』で`sample-app`フォルダを指定します。
     すると、プロジェクト全体が VS Code の管理下に置かれ、エクスプローラにファイルやフォルダが表示されます。
 
-    3. **アプリの作成**
+    3. **アプリの作成**{nl}
     アプリ本体となる Python スクリプト `main.py` を作ります。
     """
 )
 
 st.image("data/create_script.png")
 
-st.markdown(
-    """
-    `main.py`に以下を記述します。
-    ```python
-    import streamlit as st
-
-    if st.button("Say Hello"):
-        st.write("Hello!")
-    ```
-
-    4. **アプリの起動**\n
-    VS Code のターミナルに次のコマンドを入力します。
-    ```bash
-    streamlit run main.py
-    ```
-    ブラウザに 'Say Hello' と書かれたボタンが表示されたら成功です。
-
-    5. **アプリの終了**\n
-    ターミナル上で Ctrl + C を押すと終了します。
-
-    ---
-
-    #### 開発の効率化
-    1. **autopep8 の有効化**
-    PEP8 とは、Python コードの可読性を高めるための公式スタイルガイドです。
-    インデント、空白、行の長さ、命名規則などの基本的なルールを定義しています。
-    autopep8 を有効にすると、PEP8 に準拠するようにコードが自動でフォーマットされます。
-
-    プロジェクトフォルダの直下に`.vscode`フォルダを作成します。
-    その下に`settings.json`ファイルを作成し、以下を記述します。
-    ```json
+settings_json = '''
     {
         "[python]": {
             "editor.defaultFormatter": "ms-python.autopep8",
@@ -134,13 +104,9 @@ st.markdown(
             "--max-line-length=120"
         ]
     }
-    ```
-    `--max-line-length=120`で一行の文字数を定義しています。PEP8 は 79 文字を推奨していますが、長すぎなければ自由に決めてよいです。
+'''
 
-    2. **F5 キーで Streamlit を起動できるようにする**
-    起動のたびに`streamlit run main.py`と入力するのは大変なので、VS Code のデバッグモード (F5) で起動できるように設定します。
-    `.vscode`フォルダの下に`launch.json`を作成します。
-    ```json
+launch_json = '''
     {
         "version": "0.2.0",
         "configurations": [
@@ -156,6 +122,48 @@ st.markdown(
             }
         ]
     }
+'''
+
+st.markdown(
+    f"""
+    `main.py` に以下を記述します。
+    ```python
+    import streamlit as st
+
+    if st.button("Say Hello"):
+        st.write("Hello!")
+    ```
+
+    4. **アプリの起動**{nl}
+    VS Code のターミナルに次のコマンドを入力します。
+    ```bash
+    streamlit run main.py
+    ```
+    ブラウザに 'Say Hello' と書かれたボタンが表示されたら成功です。
+
+    5. **アプリの終了**{nl}
+    ターミナル上で Ctrl + C を押すと終了します。
+
+    ---
+
+    #### 開発の効率化
+    1. **autopep8 の有効化**{nl}
+    PEP8 とは、Python コードの可読性を高めるための公式スタイルガイドです。
+    インデント、空白、行の長さ、命名規則などの基本的なルールを定義しています。
+    autopep8 を有効にすると、PEP8 に準拠するようにコードが自動でフォーマットされます。
+
+    プロジェクトフォルダの直下に`.vscode`フォルダを作成します。
+    その下に`settings.json`ファイルを作成し、以下を記述します。
+    ```json
+    {settings_json}
+    ```
+    `--max-line-length=120`で一行の文字数を定義しています。PEP8 は 79 文字を推奨していますが、長すぎなければ自由に決めてよいです。
+
+    2. **F5 キーで Streamlit を起動できるようにする**{nl}
+    起動のたびに`streamlit run main.py`と入力するのは大変なので、VS Code のデバッグモード (F5) で起動できるように設定します。
+    `.vscode`フォルダの下に`launch.json`を作成します。
+    ```json
+    {launch_json}
     ```
     このように設定すると、VS Code で現在編集しているファイルに関わらず、F5 キーを押すと`streamlit run main.py`がデバッグモードで実行されます。
     一方で、プロジェクトの他のスクリプトを F5 キーで実行できなくなります。
@@ -166,11 +174,10 @@ st.markdown(
 st.subheader("2) GitHub にアップロード", divider=True)
 st.markdown(
     """
-    GitHub とは、バージョン管理システム「Git」を利用してコードを管理・共有する Web サービスです。
-    後でアプリを Web サーバにデプロイする時にも、GitHub を経由してソースコードをアップロードします。
-    GitHub は非常に多機能なツールですが、ここではアプリを公開するまでに必要な手続きのみに限定して説明します。
-
-    ---
+    > GitHub とは、バージョン管理システム「Git」を利用してコードを管理・共有する Web サービスです。
+    > アプリを Web サーバにデプロイする時も、GitHub を経由することで効率的にコードをやりとりできます。
+    
+    Git は非常に多機能ですが、ここではアプリを公開するまでの手続きに焦点を当てて説明します。
 
     #### Git 管理の全体像
     """
@@ -357,5 +364,18 @@ st.markdown(
     ---
 
     #### 社内サーバにデプロイ
+    1. **使用するサーバを決める**{nl}
+    すでに社内で Streamlit アプリが使われているのであれば、アクセス方法や管理ルールなどを担当者に確認してください。
+    新しいサーバが必要な場合は IT チームに依頼しましょう。
+    
+    2. **サーバ上に Streamlit 環境を構築する**{nl}
+    サーバ上で pip コマンドが使えるなら `pip install streamlit` とすればよいです。{nl}
+    しかしながら、権限の制約により pip が使えない場合、Python 仮想環境を用意する必要があります。
+    > Python 仮想環境とは、プロジェクトごとに独立した Python 実行環境を作る仕組みです。
+    > ライブラリや Python のバージョンをプロジェクト単位で分けて管理できます。
+    
+    3. **GitHub からアプリをダウンロードする**{nl}
+    
+    4. **アプリを稼働させる**{nl}
     """
 )
