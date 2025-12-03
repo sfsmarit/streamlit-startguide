@@ -7,7 +7,7 @@ st.title("とりあえず作ってみよう")
 
 st.markdown(
     f"""
-    このページでは、アプリの開発環境の構築から公開まで、開発を一通りやってみます。
+    このページでは、開発環境の構築からアプリの公開まで、開発を一通りやってみます。
     """
 )
 
@@ -81,7 +81,7 @@ st.markdown(
 
     1. **フォルダを作成**{nl}
     ここではフォルダ名を`sample-app`とします。
-    プロジェクト名が複数単語からなる場合、GitHub の慣用表現にならって _ (アンダースコア) ではなく - (ハイフン) で繋ぎます。
+    プロジェクト名が複数単語からなる場合、GitHub の慣用表現にならってアンダースコア (_) ではなくハイフン (-) で繋ぎます。
 
     2. **VS Code でプロジェクトを開く**{nl}
     『ファイル > フォルダーを開く』で`sample-app`フォルダを指定します。
@@ -198,10 +198,10 @@ st.markdown(
     Git と GitHub を使ってファイルを管理する手順は以下のようになります。
 
     1. GitHub リポジトリ作成
-    2. ローカルリポジトリの初期化`init`
-    3. ローカルファイルの変更をステージング`add`
-    4. ステージングされた変更をコミット`commit`
-    5. コミット内容を GitHub にアップロード`push`
+    2. ローカルリポジトリの初期化 `init`
+    3. ローカルファイルの変更をステージング `add`
+    4. ステージングされた変更をコミット `commit`
+    5. コミット内容を GitHub にアップロード `push`
 
     Agile で例えると、ステージングはファイル添付、コミットは Change Order に相当します。
     また、ここでは説明しませんが、誰かの GitHub リポジトリをコピー`clone`して使うこともできます。
@@ -221,7 +221,7 @@ st.markdown(
     以下のコマンドをターミナルに入力します。
     ```bash
     git config --global user.name "Your_Name"
-    git config --global user.email "Your_GitHub_email_address"
+    git config --global user.email "Your_GitHub_email"
     ```
     GitHub アカウントに紐づいているメールアドレスを登録しておくことで、プッシュしたときにアカウントが正しく認識されます。
 
@@ -294,7 +294,7 @@ st.image("data/git_init.png")
 
 st.markdown(
     f"""
-    **リモートリポジトリの紐づけ`git remote add`**{nl}
+    **リモートリポジトリの紐づけ** `git remote add`{nl}
     1. 「... > リモート > リモートの追加」をクリック
     2.  GitHub リポジトリの URL`https://github.com/<UserName>/sample-app.git`を入力
     3.  リモート名に`origin`を指定
@@ -305,7 +305,7 @@ st.image("data/git_add_remote.png")
 
 st.markdown(
     f"""
-    **変更のステージング・コミット**`git add + git commit`{nl}
+    **変更のステージング・コミット** `git add + git commit`{nl}
     コミットをクリックして、コミットメッセージを入力
     """
 )
@@ -314,7 +314,7 @@ st.image("data/first_commit.png")
 
 st.markdown(
     f"""
-    **ブランチの発行・アップロード**`git push`{nl}
+    **ブランチの発行・アップロード** `git push`{nl}
     - 初回 :「Branchの発行」をクリック
     - 以降 : 「... > プッシュ」をクリック
     GitHub のリポジトリのページを確認し、main ブランチにファイルがアップロードされていたら成功です。
@@ -425,11 +425,11 @@ st.markdown(
     # コードを更新
     git pull
     ```
-    `pull`すると、更新データをダウンロードして既存ファイルにマージします`fetch + merge`。    
+    `pull`すると、更新データをダウンロードして既存ファイルにマージします (`fetch + merge`)。    
 
     ---
 
     #### アプリを安定稼働させる
-    執筆中...
+    ...
     """
 )
