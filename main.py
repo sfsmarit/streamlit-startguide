@@ -1,18 +1,14 @@
 import streamlit as st
 
 
-st.sidebar.radio("Language", ["JP", "EN"], key="language")
+lang = st.sidebar.radio("Language", ["EN", "JP"], index=1, key="language")
 
-if st.session_state["language"] == "JP":
-    pages = [
-        st.Page("contents/introduction_jp.py", title="はじめに", icon=":material/home:"),
-        st.Page("contents/handson_jp.py", title="作ってみよう", icon=":material/build:"),
-        st.Page("contents/develop_jp.py", title="開発のコツ", icon=":material/lightbulb_2:"),
-    ]
-else:
-    pages = [
-        st.Page("contents/introduction_en.py", title="Introduction", icon=":material/home:"),
-        st.Page("contents/handson_en.py", title="Hands-On", icon=":material/build:"),
-        st.Page("contents/develop_en.py", title="Tips", icon=":material/lightbulb_2:"),
-    ]
+suffix = lang.lower()
+
+pages = [
+    st.Page(f"contents/introduction_{suffix}.py", title="はじめに" if lang == "JP" else "Introduction", icon=":material/home:"),
+    st.Page(f"contents/handson_{suffix}.py", title="作ってみよう" if lang == "JP" else "Hands-On", icon=":material/build:"),
+    st.Page(f"contents/tips_{suffix}.py", title="開発のコツ" if lang == "JP" else "Tips", icon=":material/lightbulb_2:"),
+]
+
 st.navigation(pages, position="sidebar", expanded=True).run()
