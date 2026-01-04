@@ -13,74 +13,75 @@ st.markdown(
     """
 )
 
-st.subheader("Features of Web Apps", divider=True)
+st.subheader("Features of Web Applications", divider=True)
 st.markdown(
-    f"""
-    :white_check_mark: **Advantages**
-    - For developers:
-      - Easy distribution and updates
-      - Centralized management (users cannot modify the app)
-    - For users:
-      - Low technical barrier to use
-      - Minimal environment dependency (usable with just a browser)
-    
-    :no_entry: **Disadvantages**
-    - Higher development cost compared to macros or scripts
-    - Requires a server to run the app
-    - Security restrictions (limited file access)
-    
-    >Web apps are effective for standardizing team workflows. {nl}
-    >However, they are not suitable for tasks like processing large amounts of local data.
+    """
+    ##### :white_check_mark: Advantages
+    Web applications offer significant benefits for both developers and users.  
+    - For developers, distributing and updating the app is extremely easy. Once deployed on a server, all users can access the latest version without manual updates. In addition, centralized code management prevents unauthorized modifications and version inconsistencies.  
+    - For users, all that’s needed is a browser—no special setup or technical knowledge required. Web apps are also less dependent on operating systems or device types, which is a major advantage.
+
+    ##### :no_entry: Disadvantages
+    There are some drawbacks to consider.  
+    - Development generally takes more time compared to local macros or scripts  
+    - A server is required to run the application  
+    - Security restrictions apply (e.g., limited access to local files)
+
+    > Web applications are ideal for tasks that need to be shared among multiple people or standardized processes.  
+    > However, they are not well-suited for handling large volumes of local data.
     """
 )
 
-st.subheader("What is Streamlit ?", divider=True)
+
+st.subheader("What is Streamlit?", divider=True)
 st.markdown(
     """
-    Streamlit is an open-source framework that makes it easy to build web apps with Python.
-    It was founded in 2018 to quickly visualize data analysis results and became open source the following year.
+    Streamlit is an open-source framework that makes it easy to build web applications using Python.  
+    It was founded in 2018 with the goal of quickly visualizing data analysis results and became open source the following year.
     
-    :white_check_mark: **Advantages**
-    - Built entirely with Python
-        - No need for frontend knowledge (HTML, CSS, JavaScript, etc.)
-        - Great for learning data analysis
-    - Fast development
-        - Create UI with minimal code
-        - Real-time code updates
-        - Rich preset UI components with good design
-    - Strong in data visualization
-        - Graphs: Matplotlib, Plotly
-        - Table data: Pandas
-        - Machine learning demos
+    ##### :white_check_mark: Advantages
+    Built entirely with Python  
+    - No need for front-end knowledge (HTML, CSS, JavaScript, etc.)
 
-    :no_entry: **Disadvantages**
-    - Difficult to create complex UIs
-    - Not suitable for large-scale apps
-    - Limited performance
+    Rapid development  
+    - Create UI with minimal code  
+    - Rich set of pre-built UI components  
+    - Real-time updates when code changes
 
-    >Streamlit is best described as a library specialized for “building small apps quickly.”
+    Strong for data visualization  
+    - Graphs: Matplotlib, Plotly  
+    - Tabular data: Pandas  
+    - Machine learning support
+
+    ##### :no_entry: Disadvantages
+    - Difficult to build complex UIs  
+    - Not suitable for large-scale applications  
+    - Performance limitations
+
+    > Streamlit is best described as a library specialized for building small-scale apps quickly.
     """
 )
 
-st.subheader("What kind of apps is it suitable for ?", divider=True)
+
+st.subheader("What Kind of Apps is Streamlit Best For?", divider=True)
 st.markdown(
-    f"""
-    :white_check_mark: **Recommended**
-    - Used within a team or department
-    - Small-scale
-    - No heavy data processing or massive concurrent access
-    - Frequent customization
+    """
+    ##### :white_check_mark: Recommended Use Cases
+    - Used within a team or department  
+    - Small-scale applications  
+    - No heavy data processing or high concurrent access  
+    - Frequent customization required  
     - Prototyping
-    
-    :no_entry: **Consider other options if**
-    - Used across multiple departments or only by yourself
-    - Large-scale or multi-functional
-    - High load
-    - Critical internal systems
-    - Requires local file access
-    - Needs IT expertise for development or operation
 
-    >If technically or operationally challenging, consult your IT team.
+    ##### :no_entry: When to Consider Other Options
+    - Used across multiple departments or by a single person only  
+    - Large-scale or multi-functional systems  
+    - High-load scenarios  
+    - Critical internal systems  
+    - Requires direct access to local files  
+    - Development and maintenance demand specialized IT knowledge
+
+    > If technical or operational challenges arise, consult your IT team.
     """
 )
 
