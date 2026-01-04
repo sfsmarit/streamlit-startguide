@@ -10,14 +10,14 @@ st.title("開発のコツ")
 st.subheader("いきなり UI を作らない", divider=True)
 st.markdown(
     f"""
-    多くのアプリにおいて最も重要な機能は、計算やデータ処理のロジックです。{nl}
-    最初にロジックのコードを完成させ、その後にデータの入出力を行う UI を実装するとよいでしょう。{nl}
+    多くのアプリにおいて最も重要なのは、計算やデータ処理のロジック (関数や処理部分) です。{nl}
+    まずはロジックを完成させ、その後にデータの入出力を行う UI を実装するとよいでしょう。{nl}
 
-    いきなり UI から着手すると次のような問題が起きます。
+    UI とロジックを同時に作ると次のような問題が起きやすくなります。
     - 実行に時間がかかり、作業効率が落ちる
     - ロジック / UI / イベント管理の三重デバッグを強いられる
 
-    ただし、UI を提供することが主目的のアプリでは、最初にハリボテの UI を作っておくと関係者への説明に役立ちます。
+    ただし、UI を提供することが主目的のアプリでは、最初にハリボテの UI (ダミー入力 + 固定出力) を作っておくと、関係者への説明に役立ちます。
     """
 )
 
@@ -28,11 +28,11 @@ st.markdown(
     機密情報を含むファイルや、開発環境と本番環境で分離したいファイルは`.gitignore`を使って Git 管理から除外します。
 
     1. プロジェクトフォルダ直下に `.gitignore` ファイルを作成
-    2. 除外したいファイルやフォルダを記述
+    2. 除外したいファイルやフォルダを記述 (例)
     ```
+    __pycache__
     .env
     .streamlit/secrets.toml
-    __pycache__
     *.pptx
     !not_ignored.pptx
     ```
@@ -43,16 +43,16 @@ st.markdown(
     開発環境と本番環境で設定を切り替える場合、`.env`ファイルを使うと便利です。
 
     1. プロジェクト直下に `.env` ファイルを作成
-    2. 環境変数を記述
+    2. 環境変数を記述 (例)
 
     ```bash
-    # 開発環境の .env
+    # 開発環境
     DEBUG=True
     DB_HOST=localhost
     DB_USER=dev_user
     ```
     ```bash
-    # 本番環境の .env
+    # 本番環境
     DEBUG=False
     DB_HOST=prod-db.example.com
     DB_USER=prod_user
@@ -74,9 +74,9 @@ st.markdown(
     ---
 
     ##### ブランチを分ける
-    複数人での開発や、機能の追加 / 修正を安全に進めたい場合には、Git のブランチが便利です。
+    複数人での開発や、機能追加・修正を安全に進めたい場合には、Git のブランチが便利です。
     > ブランチとは、Gitにおける「作業の分岐」であり、ひとつのリポジトリで複数の開発を同時に進めるための仕組みです。{nl}
-    > 分岐したブランチの変更は他のブランチにマージすることができます。
+    > 分岐したブランチの変更は他のブランチにマージできます。
 
     小規模開発におけるブランチ戦略の例
     |ブランチ名|役割|
@@ -101,7 +101,6 @@ st.markdown(
     ```
 
     **ブランチ開発の流れ**{nl}
-    `git`コマンドで説明しますが、VS Code の UI でも同じことができます。
     1. `develop`で開発
     ```bash
     git checkout develop
@@ -117,10 +116,11 @@ st.markdown(
     git push origin main
     ```
     """
-
 )
+st.caption("VS Code の UI 上でも同じことができます。")
 
-st.subheader("Streamlit の独特な仕様", divider=True)
+
+st.subheader("Streamlit の仕様を理解する", divider=True)
 st.markdown(
     f"""
     ##### Streamlit は再実行モデル
@@ -140,16 +140,16 @@ st.markdown(
     # 初期化
     if 'count' not in st.session_state:
         st.session_state['count'] = 0
-    
+
     # カウントを増やす
     if st.button('Count up'):
         st.session_state['count'] += 1
-    
+
     # 画面出力
     st.write('Current count', st.session_state['count'])
     ```
 
-    ただし、次のような場合には`st.session_state`もリセットされます。
+    :warning: 次のような場合には`st.session_state`もリセットされます。
     - ブラウザ側のセッションが切れる (リロード・タブを閉じる・ネットワーク切断など)
     - サーバ側の再起動
     - 長時間操作せずセッションタイムアウト
@@ -165,7 +165,7 @@ with st.expander("`st.session_state`の操作を 1 行で書く"):
 
         # 1行で書くと
         st.session_state.setdefault('count', 0)
-        
+
         ```
 
         値の取得
@@ -174,18 +174,18 @@ with st.expander("`st.session_state`の操作を 1 行で書く"):
             x = st.session_state['count']
         else:
             x = 0
-        
+
         # 1行で書くと
         x = st.session_state.get('count', 0)
         ```
         """
     )
 
-
 st.markdown(
     """
     ---
-    # シングルスレッド動作
+
+    ##### シングルスレッド動作
     Streamlit は基本的に 1 ユーザーにつき 1 スレッドで動作します。
     複数ユーザーが同時アクセスすると、サーバー側では別スレッドで処理され、ユーザー間で状態は共有されません。
     """
@@ -196,12 +196,34 @@ st.markdown(
     f"""
     ##### 凝った UI を作らない
     Streamlit のメリットは、あらかじめ用意された豊富なウィジェットで高速に開発できることです。
-    まずはどのようなウィジェットが利用可能か把握しておくとよいです。
-    https://docs.streamlit.io/develop/api-reference
+    まずはどのようなウィジェットが利用可能か把握しておくとよいでしょう。
+
+    [API reference](https://docs.streamlit.io/develop/api-reference)
 
     HTML+CSS や複雑な条件分岐を駆使すれば高機能なウィジェットも自作できます。
     しかし、開発に時間がかかってしまうと Streamlit を使うメリットが薄れてしまいます。
     そのような場合には、アプリの機能やロジックを見直すべきでしょう。
+
+    ---
+
+    ##### 入力を取得する方法は 2 通りある
+    **1. ウィジェットの戻り値を使う**
+    ```python
+    result = st.radio("Judge", ["OK", "NG", "NA"])
+    ```
+    取得した値をすぐに処理するような場合に適しています。
+
+    **2. ウィジェットに設定したキーを参照する**
+    ```python
+    st.radio("Judge", ["OK", "NG", "NA"], key="design_check_judge")
+    # ...
+    result = st.session_state["design_check_judge"]
+    ```
+    ウィジェットを配置する時にキーを設定すると、ウィジェットの状態を`st.session_state`から取得できます。
+    配置するコードと値を処理するコードが離れている場合に便利です。
+
+    > キーはページ内の全ウィジェットで一意でないとエラーになります。{nl}
+    > キーを設定しなかった場合、Streamlit が内部でキーを自動生成します。
 
     ---
 
@@ -211,12 +233,11 @@ st.markdown(
     if st.button('Push here'):
         st.session_state['saved'] = True
     ```
-    ここで注意したいのは、ボタンが押されてボタンが再描画されるまでは`True`にならないということです。
-    ボタンを配置する前に`st.session_state['saved']`を参照しようとすると想定と異なる挙動をします。
+    ここで注意したいのは、ボタンを押しても、ボタンが再描画されるまでは`True`にならないということです。
+    ボタンを配置する前に`st.session_state['saved']`を参照すると想定と異なる挙動をします。
 
     変更を即座に反映させたい場合、ウィジェットのコールバック機能を使いましょう。
     ```python
-
     def func():
         st.session_state['saved'] = True
 
@@ -233,32 +254,45 @@ st.markdown(
     ##### 静的ファイルを使う
     「データの保存 = データベース」ではありません。
     読み込みだけ行う場合や更新頻度が低い場合などは、`csv`や`json`といった静的ファイルで十分です。
-    ```python
-    # json の読み込み
-    import json
+    """
+)
+with st.expander("json の読み込み"):
+    st.markdown(
+        """
+        ```python
+        import json
 
-    with open(filepath, encoding="utf-8") as f:
-        data = json.load(f)
-    ```
-    ```python
-    ##### csv の読み込み
-    import csv
+        with open(filepath, encoding="utf-8") as f:
+            data = json.load(f)
+        ```
+        """
+    )
+with st.expander("csv の読み込み"):
+    st.markdown(
+        """
+        ```python
+        import csv
 
-    rows = []
-    with open(filepath, newline="", encoding="utf-8") as f:
-        reader = csv.reader(f)
-        for row in reader:
-            rows.append(row)
+        rows = []
+        with open(filepath, newline="", encoding="utf-8") as f:
+            reader = csv.reader(f)
+            for row in reader:
+                rows.append(row)
 
-    # pandas でテーブル全体を読み込むこともできる
-    import pandas as pd
-    df = pd.read_csv(filepath, encoding="utf-8")
-    ```
+        # pandas でテーブル全体を読み込むこともできる
+        import pandas as pd
+        df = pd.read_csv(filepath, encoding="utf-8")
+        ```
+        """
+    )
+
+st.markdown(
+    """
     ##### データベースを活用する
     頻繁に更新される、検索や絞り込みが多い、複数ユーザーが同時に使うといった場合には、データベースを使うほうが安全で効率的です。
 
     ```
-    << 執筆中 >>
+    << 作成中 >>
     ```
     """
 )
@@ -268,9 +302,7 @@ st.markdown(
     f"""
     限られたメンバーにのみアプリを公開したい場合、`streamlit-authenticator`でログインフォームを作るとよいです。
 
-    サンプルコード{nl}
-    https: // github.com/sfsmarit/streamlit-login-form
-
+    [サンプルコード]("https://github.com/sfsmarit/streamlit-login-form")
     """
 )
 
@@ -278,10 +310,9 @@ st.subheader("コードが複雑になってきたら", divider=True)
 st.markdown(
     f"""
     ##### 同じ処理を関数にまとめる
-    コードが長くなると、同じ処理を何度も書いてしまうことがあります。{nl}
-    関数にまとめることで、コードの再利用性と可読性が向上します。
+    コードが長くなると、同じ処理を何度も書いてしまうことがあります。
+    関数にまとめることでコードの再利用できます。
     ```python
-
     def greet(name: str):
         st.write('Hello', name)
 
@@ -292,11 +323,10 @@ st.markdown(
 
     ##### モジュールを分割する
     コードがひとつのファイルに集中すると扱いづらくなります。
-    共通処理や機能のまとまりを別の Python スクリプトに分けて、import で読み込むと整理できます。
+    共通処理や機能のまとまりを別の`.py`ファイルに分けて、import で読み込むと整理できます。
 
     ```python
     # utils.py
-
     def generate_email_from_name(name: str, domain: str = "gmail.com"):
         address = ".".join(name.lower().split())
         return address + '@' + domain
@@ -316,9 +346,9 @@ st.markdown(
     ##### session_state のキー管理
     アプリの規模が大きくなってくると`st.session_state`のキーも増えてきます。
     `st.session_state`は辞書としてふるまうため、キーは IDE で補完されません。
-    キーが増加すると覚えられなくなったりタイポでエラーになったりします。
+    キーが増加すると覚えられなくなったり、タイポによるエラーのもとになります。
 
-    大量のキーを安全に管理する手段として、列挙型`Enum`を使う方法があります。
+    多数のキーを安全に管理する手段として、列挙型`Enum`を使う方法があります。
     ```python
     from enum import Enum, auto
 
@@ -331,15 +361,15 @@ st.markdown(
     st.text_input("User Name", key=Key.USER_NAME.name)
     ```
     列挙型は一意的な名前の集合であり、重複が許されないキーに使えます。
-    `st.session_state`のキーは文字列のため`Key.XXX.name`を指定します。
+    キーには文字列である`Key.XXX.name`を指定します。
     """
 )
 
-st.subheader("重い処理をどうするか", divider=True)
+st.subheader("重い処理の対策", divider=True)
 st.markdown(
-    """
+    f"""
     ##### アプリを複数ページに分ける
-    ひとつのページに機能を詰め込みすぎている場合、ページを分けることでパフォーマンスが改善する可能性があります。
+    ひとつのページに機能を詰め込みすぎている場合、ページを分けることでパフォーマンスの改善が期待されます。
     `st.navigation`を使うと簡単にマルチページを作成できます。
     ```python
     pages = [
@@ -353,27 +383,58 @@ st.markdown(
     ---
 
     ##### キャッシュを使う
-    同じ入力で同じ結果になるような重い処理では、キャッシュを用いて結果を使いまわすことで速度を改善できます。
+    Streamlit のキャッシュには`st.cache_data`と`st.cache_resource`の 2 種類あります。
     
-    計算結果やデータをキャッシュする`st.cache_data`
+    ||`st.cache_data`|`st.cache_resource`
+    |---|---|---|
+    |対象|計算結果やデータ|外部リソースや接続|
+    |用途|同じ入力で同じ結果になる処理をキャッシュして再計算を避ける|初期化コストが高いリソースを一度だけ作って再利用する|
+    |例|高コストの計算、静的ファイル読み込み、APIレスポンス|機械学習モデルの読み込み、データベース接続|
+    
+    `st.cache_data`の使用例
     ```python
-    @st.cache_data
-    def heavy_calc(x: int):
-        time.sleep(3)  # 例：重い処理
-        return {"input": x, "result": x * x}
+    import pandas as pd
+    
+    @st.cache_data(ttl=300, show_spinner=True)  # 5分キャッシュ
+    def load_table(path: str, encoding: str = "utf-8") -> pd.DataFrame:
+        return pd.read_csv(path, encoding=encoding)
+    
+    df = load_table("large_table.csv")
     ```
 
-    DB 接続やモデル読み込みなどの外部リソースを共有する `st.cache_resource`
+    `st.cache_resource`の使用例
     ```python
+    import joblib
+    
     @st.cache_resource
-    def get_resource():
-        time.sleep(1)  # 例：初期化に時間がかかる
-        return {"conn": "shared"}
+    def load_model(path: str):
+        return joblib.load(path)
+
+    model = load_model("random_forest.pkl")
     ```
 
     ---
 
-    # 別プロセスに分離する
+    ##### 正直に見せる
+    ユーザーに「動いている」ことを伝えるだけで体感が改善します。
+
+    ```python
+    # スピナーで進行中を見せる
+    with st.spinner("計算中..."):
+        time.sleep(3)
+    ```
+
+    ```python
+    # プログレスバーを表示する
+    pbar = st.progress(0, "ステップごとの進捗")
+    for i in range(3):
+        time.sleep(1)
+        pbar.progress(100*(i+1)/5)
+    ```
+
+    ---
+
+    ##### 別プロセスに分離する
     """
 )
 
@@ -541,28 +602,3 @@ with st.expander("subprocess で別スクリプトを起動"):
         ```
         """
     )
-
-
-st.markdown(
-    """
-    ---
-
-    # 正直に見せる
-    ユーザーに「動いている」ことを伝えるだけで体感が改善します。
-
-    ```python
-    # スピナーで進行中を見せる
-    with st.spinner("計算中..."):
-        time.sleep(2)
-    ```
-
-    ```python
-    # プログレスバーを表示する
-    pbar = st.progress(0, "ステップごとの進捗")
-    for i in range(3):
-        time.sleep(1)
-        pbar.progress(100*(i+1)/5)
-    ```
-
-    """
-)
