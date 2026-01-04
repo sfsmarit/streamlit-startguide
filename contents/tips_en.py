@@ -288,7 +288,7 @@ st.markdown(
     ##### Use a Database
     If data is frequently updated, requires lots of searching/filtering, or is used by multiple users simultaneously, a database is safer and more efficient.
     ```
-    << Under construction >>
+    # Under construction
     ```
     """
 )
